@@ -25,7 +25,7 @@ This is a simple Paint App for alphabet recognition using a trained neural netwo
 2. Clone the repository or download the source code:
 
     ```
-    git clone https://github.com/yourusername/paint-app-alphabet-recognition.git](https://github.com/alij1991/NZAsgn2.git
+    git clone https://github.com/alij1991/NZAsgn2.git
     ```
 
 3. Navigate to the project directory:
