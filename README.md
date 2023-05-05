@@ -38,18 +38,6 @@ This is a simple Paint App for alphabet recognition using a trained neural netwo
     pip install -r requirements.txt
     ```
 
-    Make sure you have a `requirements.txt` file in your project directory with the following content:
-
-    ```
-    tensorflow
-    keras
-    opencv-python
-    Pillow
-    scikit-image
-    tkinter
-    numpy
-    ```
-
 ## Usage
 
 1. Run `main.py` to start the Paint App:
