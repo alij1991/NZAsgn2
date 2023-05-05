@@ -5,3 +5,5 @@ Pillow
 scikit-image
 tkinter
 numpy
+ctypes
+platform
