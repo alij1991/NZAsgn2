@@ -1,3 +1,5 @@
+import ctypes
+import platform
 import tkinter as tk
 from tkinter import colorchooser, filedialog
 from PIL import ImageGrab
@@ -134,33 +136,30 @@ class PaintApp():
         self.canvas.config(bg="white")
     
     def process_drawing_single_letter(self):
-        treshhold = 15
-        if self.result_text_id is not None:
-            self.canvas.delete(self.result_text_id)
-
-        # Get the DPI scaling factor
-        dpi_scaling = ctypes.windll.shcore.GetScaleFactorForDevice(0) / 100
-        # Adjust the bounding box based on the DPI scaling factor
-        bbox = (
-            int((self.canvas.winfo_rootx() + treshhold) * dpi_scaling),
-            int((self.canvas.winfo_rooty() + treshhold * 2) * dpi_scaling),
-            int((self.canvas.winfo_rootx() + self.canvas.winfo_width() - treshhold) * dpi_scaling),
-            int((self.canvas.winfo_rooty() + self.canvas.winfo_height() - treshhold) * dpi_scaling)
-        )
-
-        # Grab the contents of the canvas as an image
-        img = ImageGrab.grab(bbox=bbox)
-        img = img.convert('L')
+        img = self.create_img_for_process()
         alphabetRecognition = AlphabetRecognition()
         result = alphabetRecognition.process_image_single_letter(img)
         self.result_text_id = self.canvas.create_text(10, 2, text="result: " + result, font=("Arial", 18), fill="grey", anchor="nw")
     def process_drawing_multiple_letter(self):
+        img = self.create_img_for_process()
+        alphabetRecognition = AlphabetRecognition()
+        result = alphabetRecognition.process_image_multiple_letters(img)
+        # print the predicted labels
+        self.result_text_id = self.canvas.create_text(10, 2, text="result: "+result, font=("Arial", 18),fill= "grey", anchor="nw")
+
+
+    def create_img_for_process(self):
         treshhold = 15  
         if self.result_text_id is not None:
             self.canvas.delete(self.result_text_id)
         # grab the contents of the canvas as an image
         # Get the DPI scaling factor
-        dpi_scaling = ctypes.windll.shcore.GetScaleFactorForDevice(0) / 100
+        dpi_scaling = 1
+
+        if platform.system() == 'Windows':
+            dpi_scaling = ctypes.windll.shcore.GetScaleFactorForDevice(0) / 100
+        else:
+            print("Non-Windows platform detected. DPI scaling will be set to 1 by default.")
         # Adjust the bounding box based on the DPI scaling factor
         bbox = (
             int((self.canvas.winfo_rootx() + treshhold) * dpi_scaling),
@@ -174,7 +173,4 @@ class PaintApp():
         img = img.convert('L')
         # img.save("testgray.png")
         # print(img.size, img.mode)
-        alphabetRecognition = AlphabetRecognition()
-        result = alphabetRecognition.process_image_multiple_letters(img)
-        # print the predicted labels
-        self.result_text_id = self.canvas.create_text(10, 2, text="result: "+result, font=("Arial", 18),fill= "grey", anchor="nw")
+        return img
