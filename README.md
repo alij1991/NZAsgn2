@@ -15,6 +15,8 @@ This is a simple Paint App for alphabet recognition using a trained neural netwo
 - Draw single or multiple letters on a canvas
 - Recognize drawn letter(s) using a pre-trained neural network model
 - Supports both single letter and multiple letters recognition
+- Load and save images to and from the canvas
+- Customize brush size and color
 
 ## Installation
 
@@ -51,6 +53,11 @@ This is a simple Paint App for alphabet recognition using a trained neural netwo
 3. Click the "Single letter process" or "Multiple letters process" button to recognize the drawn letter(s).
 
 4. The recognized letter(s) will be displayed on the canvas.
+
+5. Customize the brush size and color using the provided options.
+
+6. Save your work by clicking the "Save" button as a .txt file or load an existing drawing .txt files using the "Load" button.
+
 
 ## Files
 
